@@ -1,0 +1,32 @@
+<html>
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css"/>
+    <script>
+        "use strict";
+        window.onload = function(){
+            var display = document.getElementById("listDisplay");
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //console.log(this.responseText);
+                var myObj = JSON.parse(this.responseText);
+                display.innerHTML = myObj.dataArr[0];
+                //console.log("yep swapped");
+            }
+            };
+            xmlhttp.open("GET", "getlist.php", true);
+            xmlhttp.send(); 
+        }
+
+    </script>
+
+    <div id="main-content">
+        <p id="listDisplay">
+
+            <img id="loading" src="loading-litest.png"></img>
+
+        </p>
+    </div>
+
+
+
+</html>

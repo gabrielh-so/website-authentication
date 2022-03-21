@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Page Title</title>
+        <link rel="stylesheet" type="text/css" href="theme.css">
+    </head>
+    <script>
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        function formValidation(){
+            var success = true;
+            if(document.getElementById("name").value == "") {
+                document.getElementById("namee").className = "error";
+                document.getElementById("name").focus();
+                success = false;
+            } else document.getElementById("namee").className = "error-hidden";
+
+            if(document.getElementById("username").value == "") {
+                document.getElementById("usernamee").className = "error";
+                if (success) document.getElementById("username").focus();
+                success = false;
+            } else document.getElementById("usernamee").className = "error-hidden";
+
+            if(!validateEmail(document.getElementById("email").value)) {
+                document.getElementById("emaile").className = "error";
+                if (success) document.getElementById("email").focus();
+                success = false;
+            } else document.getElementById("emaile").className = "error-hidden";
+
+            if(document.getElementById("password").value == "") {
+                document.getElementById("passworde").className = "error";
+                if (success) document.getElementById("password").focus();
+                success = false;
+            } else document.getElementById("passworde").className = "error-hidden";
+            //alert("Success!  The form has been completed, validated and is ready to be submitted...");
+            return success;
+        }
+    </script>
+<body>
+
+    <div class="mainContent">
+        <h1>Sign up</h1>
+        <form action="welcome.php" method="post" onsubmit="return formValidation();">
+            <div class="row">
+                <div class="col-25">
+                    <p>Name: </p>
+                </div>
+                <div class="col-75">
+                    <input id="name" type="text" name="name"><p id="namee" class="error-hidden">name is required</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <p>Username: </p>
+                </div>
+                <div class="col-75">
+                    <input id="username" type="text" name="username"><p id="usernamee" class="error-hidden">Username is required</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <p>Email: </p>
+                </div>
+                <div class="col-75">
+                    <input id="email" type="text" name="email"><p id="emaile" class="error-hidden">Email is required</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <p>Password: </p>
+                </div>
+                <div class="col-75">
+                    <input id="password" type="password" name="pswd"><p id="passworde" class="error-hidden">Password is required</p>
+                </div>
+            </div>
+            <input type="submit">
+        </form>
+        <p class="userLogin">Already have an account? <a href="./userLogin">Login here</a></p>
+    </div>
+
+</body>
+</html>

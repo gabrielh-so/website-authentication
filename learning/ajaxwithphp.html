@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <script>
+
+        var suggestion = "";
+        function expand(){
+            document.getElementById("suggestion") = suggestion;
+            console.log(suggestion);
+            console.log("ran expand");
+        }
+        function getSuggestion(str){
+            if (str.length < 3){
+                document.getElementById("suggestion").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200){
+                        suggestion = this.responseText;
+                        sa = suggestion.split("\n");
+                        for(x = 0; x < sa.length; x++) sa[x] = sa[x].substring(4);
+                        sa.pop();
+                        //console.log(sa);
+                        //out = "";
+                        //for(x = 0; x < Math.min(4, sa.length); x++) out += sa[x];
+                        //document.getElementById("suggestion").innerHTML = out + ((sa.length < 4) ? "" : '<button onclick="this.innerhtml = suggestion">and more</button>');
+                        document.getElementById("suggestion").innerHTML = suggestion;
+                    }
+                };
+                xmlhttp.open("GET", "gethint.php?in=" + str, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
+
+    <form>
+        First name: <input type="text" onkeyup="getSuggestion(this.value)">
+    </form>
+    <p id="suggestion"></p>
+
+    <iframe src="http://localhost/phpforms/learning/json"></iframe>    
+
+</html>
